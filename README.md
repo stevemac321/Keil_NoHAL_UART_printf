@@ -12,3 +12,7 @@
     return ch;
 }
 >>  Also shows how to get voltage samples via ADC, init ADC and init usart.
+>> also I added the SVMFunctions with a trained svm_model.h for outlier detection
+>> The elf is about 24K, so well under Keil 32K limit if that is a concern
+>> The version of the program called BareBones is about the same code and the elf is 84K.
+>> Anyway, the main thing is how to use printf the Keil way.
