@@ -138,6 +138,7 @@ void get_live_row(int len)
 
 		// Convert to voltage (assuming Vref = 3.3V and 12-bit resolution)
 		float f = (float)raw * (3.3f / 4095.0f);
+		voltage[i] = f;
 		printf("%.5f ", f);
 	}
 	printf("\n");
