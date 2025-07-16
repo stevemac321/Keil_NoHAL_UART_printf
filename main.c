@@ -9,7 +9,7 @@
 int fputc(int ch, FILE *f);
 void uart2_init(void);
 void adc1_init(void);
-void get_live_row(int len);
+void get_live_row(float *row, int len);
 void print_row(float * row, int len);
 
 #ifdef TEST_OUTLIERS
@@ -50,7 +50,7 @@ int main(void)
 	printf("test\n");
 	
 	for(int i=0; i < NUM_ROWS; i++) {
-		get_live_row(NUM_COLS);
+		get_live_row(voltage, NUM_COLS);
 		int32_t pred = 0;
 		arm_svm_polynomial_predict_f32(&svm, voltage, &pred);
 		printf("Row: %d, pred: %d, \n", i, pred);
@@ -124,7 +124,7 @@ void adc1_init(void)
     // Optional: Start conversion
     // ADC1->CR2 |= ADC_CR2_SWSTART;
 }
-void get_live_row(int len)
+void get_live_row(float *row, int len)
 {
 	for (int i = 0; i < len; ++i) {
 		// Start ADC conversion
@@ -138,7 +138,7 @@ void get_live_row(int len)
 
 		// Convert to voltage (assuming Vref = 3.3V and 12-bit resolution)
 		float f = (float)raw * (3.3f / 4095.0f);
-		voltage[i] = f;
+		row[i] = f;
 		printf("%.5f ", f);
 	}
 	printf("\n");
